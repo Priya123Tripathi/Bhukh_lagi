@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -12,8 +12,8 @@ function Home() {
 
       try {
 
-        const res = await axios.get(
-          "http://localhost:5000/api/restaurants"
+        const res = await api.get(
+          "/restaurants"
         );
 
         setRestaurants(res.data);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 
 function Reservation() {
 
@@ -32,8 +32,14 @@ function Reservation() {
         localStorage.getItem("user")
       );
 
-      await axios.post(
-        "http://localhost:5000/api/reservations",
+if (!user) {
+  alert("Please login first");
+  navigate("/login");
+  return;
+}
+
+      await api.post(
+        "/reservations",
         {
           userId: user._id,
           restaurantId: id,

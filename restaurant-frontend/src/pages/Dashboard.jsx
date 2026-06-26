@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../api";
 
 function Dashboard() {
 
@@ -13,8 +13,10 @@ function Dashboard() {
         const user = JSON.parse(
           localStorage.getItem("user")
         );
-        const res = await axios.get(
-          `http://localhost:5000/api/reservations/user/${user._id}`
+        
+          if (!user) return;
+        const res = await api.get(
+          `/reservations/user/${user._id}`
         );
 
         setReservations(res.data);
@@ -81,7 +83,8 @@ function Dashboard() {
                 <div className="flex justify-between items-center">
 
                   <h2 className="text-2xl font-bold text-orange-500">
-                    Reservation
+                     {reservation.restaurantId?.name}
+
                   </h2>
 
                   <span className="bg-orange-100 text-orange-600 px-3 py-1 rounded-full text-sm">

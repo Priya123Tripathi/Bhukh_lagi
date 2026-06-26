@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-
+import api from "../api";
 function Menu() {
 
   const { id } = useParams();
@@ -15,8 +14,8 @@ function Menu() {
 
       try {
 
-        const res = await axios.get(
-          `http://localhost:5000/api/menu/restaurant/${id}`
+        const res = await api.get(
+          `/menu/restaurant/${id}`
         );
 
         setMenuItems(res.data);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -20,18 +20,13 @@ function Signup() {
     });
   };
   const handleSubmit = async (e) => {
-
   e.preventDefault();
-
   try {
-
-    const res = await axios.post(
-      "http://localhost:5000/api/auth/signup",
+    const res = await api.post(
+      "/auth/signup",
       form
     );
-
     alert(res.data.message);
-
     navigate("/login");
 
   } catch (err) {
@@ -114,8 +109,10 @@ return (
           <input
             type="text"
             name="name"
+            autoComplete="name"
             placeholder="Full Name"
             value={form.name}
+            required
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
           />
@@ -123,7 +120,9 @@ return (
           <input
             type="email"
             name="email"
+            autoComplete="email"
             placeholder="Email Address"
+            required
             value={form.email}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"
@@ -132,7 +131,9 @@ return (
           <input
             type="password"
             name="password"
+            autoComplete="new-password"
             placeholder="Create Password"
+            required
             value={form.password}
             onChange={handleChange}
             className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-400"

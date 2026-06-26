@@ -1,13 +1,12 @@
 import Navbar from "./components/Navbar";
 import { Routes, Route, useLocation } from "react-router-dom";
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Reservation from "./pages/Reservation";
 import Dashboard from "./pages/Dashboard";
 import Menu from "./pages/Menu";
-
+const user = JSON.parse(localStorage.getItem("user"));
 function App() {
 
   const location = useLocation();
@@ -21,7 +20,7 @@ function App() {
       {!hideNavbar && <Navbar />}
 
       <Routes>
-        <Route path="/" element={<Home />} />
+       <Route path="/" element={user ? <Home /> : <Login />}/>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/menu/:id" element={<Menu />} />
         <Route path="/reservation/:id" element={<Reservation />} />

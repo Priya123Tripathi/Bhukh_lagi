@@ -33,24 +33,24 @@ function Reservation() {
 
 }
 
-const res = await api.post("/reservations", {
-  userId: user._id,
-  restaurantId: id,
-  date: form.date,
-  time: form.time,
-  guests: form.guests
-});
+// const res = await api.post("/reservations", {
+//   userId: user._id,
+//   restaurantId: id,
+//   date: form.date,
+//   time: form.time,
+//   guests: form.guests
+// });
 
-navigate("/confirmation", {
-  state: {
-    restaurantName: res.data.restaurantId?.name,
-    date: form.date,
-    time: form.time,
-    guests: form.guests,
-  },
-});
+// navigate("/confirmation", {
+//   state: {
+//     restaurantName: res.data.restaurantId?.name,
+//     date: form.date,
+//     time: form.time,
+//     guests: form.guests,
+//   },
+// });
 
-return;
+// return;
 
 const { data: order } = await api.post(
   "/payment/create-order",

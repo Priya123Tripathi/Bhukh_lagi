@@ -27,9 +27,9 @@ function Reservation() {
       );
 
       if (!user) {
-  alert("Please login first");
-  navigate("/login");
-  return;
+   alert("Please login first");
+   navigate("/login");
+   return;
 
 }
 

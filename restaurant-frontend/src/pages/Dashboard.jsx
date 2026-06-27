@@ -32,6 +32,21 @@ function Dashboard() {
     fetchReservations();
 
   }, []);
+  const cancelReservation = async (id) => {
+  try {
+    await api.delete(`/reservations/${id}`);
+    setReservations(
+      reservations.filter(
+        (reservation) => reservation._id !== id
+      )
+    );
+    alert("Reservation Cancelled Successfully");
+  } catch (err) {
+    console.log(err);
+    alert("Unable to Cancel Reservation");
+
+  }
+};
 
   return (
 
@@ -112,6 +127,12 @@ function Dashboard() {
 
                 </div>
 
+              <button
+  onClick={() => cancelReservation(reservation._id)}
+  className="mt-4 bg-red-500 text-white px-4 py-2 rounded-xl"
+>
+  Cancel Reservation
+</button>
               </div>
 
             ))}

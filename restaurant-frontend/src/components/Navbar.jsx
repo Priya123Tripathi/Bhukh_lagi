@@ -10,7 +10,7 @@ function Navbar() {
 
     navigate("/login");
   };
-
+const user = JSON.parse(localStorage.getItem("user"));
   return (
     <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200">
 
@@ -39,7 +39,20 @@ function Navbar() {
           >
             Dashboard
           </Link>
-
+           
+           <Link to="/profile"
+            className="font-medium text-gray-700 hover:text-orange-500 transition"
+            >
+           Profile
+          </Link>
+          
+          {user?.email === "admin@gmail.com" && (
+     <Link to="/admin"
+      className="font-medium text-gray-700 hover:text-orange-500 transition"
+    >
+        Admin
+      </Link>
+)}
           <button
             onClick={handleLogout}
             className="bg-orange-500 text-white px-5 py-2 rounded-xl font-medium hover:bg-orange-600 transition"

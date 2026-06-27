@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 function Home() {
 
   const [restaurants, setRestaurants] = useState([]);
-
+const [search, setSearch] = useState("");
+const [cuisine, setCuisine] = useState("All");
   useEffect(() => {
 
     const fetchRestaurants = async () => {
@@ -29,6 +30,14 @@ function Home() {
     fetchRestaurants();
 
   }, []);
+
+const filteredRestaurants = restaurants
+  .filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(search.toLowerCase())
+  )
+  .filter((restaurant) =>
+    cuisine === "All" || restaurant.cuisine === cuisine
+  );
 
   return (
 <>
@@ -55,7 +64,7 @@ function Home() {
 
   <div className="bg-white p-6 rounded-3xl shadow-lg text-center">
     <h2 className="text-4xl font-bold text-orange-500">
-      {restaurants.length}
+     {filteredRestaurants.length}
     </h2>
     <p className="text-gray-500 mt-2">
       Restaurants
@@ -81,10 +90,49 @@ function Home() {
   </div>
 
 </div>
+<div className="max-w-6xl mx-auto px-6 mb-10 flex flex-col md:flex-row gap-4">
+
+  <input
+    type="text"
+    placeholder="Search Restaurant..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="flex-1 p-3 border rounded-xl shadow"
+  />
+
+  <select
+    value={cuisine}
+    onChange={(e) => setCuisine(e.target.value)}
+    className="p-3 border rounded-xl shadow"
+  >
+    <option value="All">All</option>
+    <option value="Indian">Indian</option>
+    <option value="Chinese">Chinese</option>
+    <option value="Italian">Italian</option>
+    <option value="Fast Food">Fast Food</option>
+  </select>
+
+</div>
 
 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto px-6 mb-20">
 
-  {restaurants.map((restaurant) => (
+{filteredRestaurants.length === 0 ? (
+
+  <div className="col-span-full bg-white p-10 rounded-3xl shadow-lg text-center">
+
+    <h2 className="text-3xl font-semibold text-gray-700">
+      No Restaurant Found
+    </h2>
+
+    <p className="text-gray-500 mt-3">
+      Try searching another restaurant or choose a different cuisine.
+    </p>
+
+  </div>
+
+) : (
+
+  filteredRestaurants.map((restaurant) => (
 
     <div
       key={restaurant._id}
@@ -104,7 +152,7 @@ function Home() {
       </div>
 
       <p className="mt-4 text-gray-500">
-         {restaurant.address}
+        {restaurant.address}
       </p>
 
       <Link to={`/menu/${restaurant._id}`}>
@@ -115,7 +163,9 @@ function Home() {
 
     </div>
 
-  ))}
+  ))
+
+)}
 
 </div>
 

@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 const authRoutes =require("./routes/auth");
 const restaurantRoutes =require("./routes/restaurant");
 const reservationRoutes =require("./routes/reservation");
+const paymentRoutes = require("./routes/payment");
+const userRoutes = require("./routes/user");
 const cors = require("cors");
 
 const menuRoutes=require("./routes/menu");
@@ -27,9 +29,11 @@ app.use((req,res,next)=>{
    console.log("BODY FROM SERVER =>", req.body);
    next();
 });
+app.use("/api/payment", paymentRoutes);
 app.use("/api/restaurants",restaurantRoutes);
 app.use("/api/auth",authRoutes);
 app.use( "/api/menu",menuRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/reservations",reservationRoutes);
 
 mongoose.connect(process.env.MONGO_URI)

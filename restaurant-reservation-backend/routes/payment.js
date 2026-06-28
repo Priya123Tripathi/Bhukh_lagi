@@ -6,11 +6,13 @@ const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
+console.log("Payment Route File Loaded");
 
 router.post("/create-order", async (req, res) => {
   try {
+   console.log("Create Order API Called");
     const options = {
-      amount: req.body.amount * 100, // ₹100 => 10000 paise
+      amount: req.body.amount * 100, 
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
     };
